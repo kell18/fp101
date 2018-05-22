@@ -1,10 +1,13 @@
 package ru.itclover.fp101.bank_account
 
+/**
+  * Does this program outline have any conceptual problems? How would you refactor it?
+  */
 object OpaqueModel {
 
   class BankAccount(initBalance: Long, maxOverdraft: Long) {
-    var balance: Long = initBalance
-    var overdraft: Long = maxOverdraft
+    private var balance: Long = initBalance
+    private var overdraft: Long = maxOverdraft
 
     def withdraw(amount: Long): Unit = if (amount > balance) {
       balance = 0
@@ -18,9 +21,13 @@ object OpaqueModel {
 
 
     def eqv(other: BankAccount): Boolean =
-      balance == other.balance && overdraft == other.overdraft
-  }
+      balance == other.getBalance && overdraft == other.getOverdraft
 
+
+    def getBalance: Long = balance
+
+    def getOverdraft: Long = overdraft
+  }
 }
 
 
@@ -34,6 +41,6 @@ object OpaqueBankAccount extends App {
   account1.withdraw(20)
   account1.deposit(100)
 
-  println(account1)
-  println(account1 eqv account2) // false
+  println(account1.getBalance)
+  println(account1 eqv account2)
 }
